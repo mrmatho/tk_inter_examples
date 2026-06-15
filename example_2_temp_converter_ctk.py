@@ -13,14 +13,17 @@ def main():
     ctk.set_appearance_mode("System")
     ctk.set_default_color_theme("blue")
 
+    # Create the main window
     root = ctk.CTk()
     root.title("Temperature Converter (CustomTkinter)")
     root.geometry("420x250")
 
+    # String variables to hold input values and the result message
     c_var = ctk.StringVar()
     f_var = ctk.StringVar()
     result_var = ctk.StringVar(value="Enter a value and choose conversion.")
 
+    # Convert Celsius input to Fahrenheit and update the display
     def convert_c_to_f():
         try:
             celsius = float(c_var.get())
@@ -32,6 +35,7 @@ def main():
         f_var.set(f"{fahrenheit:.2f}")
         result_var.set(f"{celsius:.2f} C = {fahrenheit:.2f} F")
 
+    # Convert Fahrenheit input to Celsius and update the display
     def convert_f_to_c():
         try:
             fahrenheit = float(f_var.get())
@@ -43,6 +47,7 @@ def main():
         c_var.set(f"{celsius:.2f}")
         result_var.set(f"{fahrenheit:.2f} F = {celsius:.2f} C")
 
+    # Clear all input fields and reset the result message
     def clear_fields():
         c_var.set("")
         f_var.set("")
@@ -51,19 +56,23 @@ def main():
     container = ctk.CTkFrame(root)
     container.pack(fill="both", expand=True, padx=16, pady=16)
 
+    # Add input fields for Celsius and Fahrenheit
     ctk.CTkLabel(container, text="Celsius").grid(row=0, column=0, padx=10, pady=(12, 8), sticky="w")
     ctk.CTkEntry(container, textvariable=c_var, width=180).grid(row=0, column=1, padx=10, pady=(12, 8), sticky="ew")
 
     ctk.CTkLabel(container, text="Fahrenheit").grid(row=1, column=0, padx=10, pady=8, sticky="w")
     ctk.CTkEntry(container, textvariable=f_var, width=180).grid(row=1, column=1, padx=10, pady=8, sticky="ew")
 
+    # Add conversion and clear buttons
     ctk.CTkButton(container, text="C -> F", command=convert_c_to_f).grid(row=2, column=0, padx=10, pady=8, sticky="ew")
     ctk.CTkButton(container, text="F -> C", command=convert_f_to_c).grid(row=2, column=1, padx=10, pady=8, sticky="ew")
     ctk.CTkButton(container, text="Clear", command=clear_fields).grid(row=3, column=0, columnspan=2, padx=10, pady=4, sticky="ew")
 
+    # Add a label to display the conversion result
     ctk.CTkLabel(container, textvariable=result_var).grid(row=4, column=0, columnspan=2, padx=10, pady=(10, 12), sticky="w")
 
     container.grid_columnconfigure(1, weight=1)
+    # Start the event loop
     root.mainloop()
 
 
